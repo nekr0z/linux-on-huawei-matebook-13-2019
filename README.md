@@ -19,8 +19,8 @@ I am running Debian on the more simple MateBook 13 variant, model Wright-W19. Th
 | Storage | Samsung SSD, 256 GB | Yes | via standard kernel driver |
 | Soundcard  | Intel Cannon Point-LP High Definition Audio | Yes  | via standard kernel driver, works fine with `pulseaudio` |
 | Speakers  |  | Yes |  |
-| Microphone | | Not tested| |
-| Webcam|  | Not tested | |
+| Microphone | | Yes | out of the box |
+| Webcam | HD Camera (13D3:56C6) | Yes | works out of the box, indicating light too |
 | Ports | 2 × USB-C | Yes | charging works only via left port, external display only via right one, but it is a known hardware limitation of the laptop |
 | Power button |  | No | not detected by ACPI, generates no events and can't be mapped to anything |
 | Fingerprint Reader | some proprietary sensor | No | located on the power button  |
@@ -31,7 +31,7 @@ I am running Debian on the more simple MateBook 13 variant, model Wright-W19. Th
 | Lid | ACPI-compliant |  Yes | works as expected, though ACPI complains in logs |
 | Power management | | Yes | other than Power button, things seem to be working well out of the box: suspend state S3 and hibernation do work, and there seems to be no issues after waking up |
 | Keyboard |  | Mostly | backlight and backlight control work, Fn+Key combinations work (including non-documented Fn+Up/Down = PgUp/PgDn, Fn+Left/Right = Home/End), volume control works, microphone switch doesn't, display switch works, Wifi switch doesn't, Huawei key doesn't; those that don't generate nothing in ACPI logs or `xev` |
-| Touchpad | ELAN962C:00 04F3:30D0 | Kinda | touchpad is detected and works in KDE (though not in Debian installer), but almost all options are greyed out; double- and three-finger clicks work, so does double-finger scrolling, multi-touch gestures can not be set up; upon every touch floods system logs with error messages (`incomplete report (14/65535)` - up to the point where rubbing your finger against touchpad produces 15% CPU usage by syslog |
+| Touchpad | ELAN962C:00 04F3:30D0 | Kinda | touchpad is detected and works in KDE (though not in Debian installer), but almost all options are greyed out; double- and three-finger clicks work, so does double-finger scrolling, multi-touch gestures can not be set up; upon every touch floods system logs with error messages (`incomplete report (14/65535)`) - up to the point where rubbing your finger against touchpad produces 15% CPU usage by syslog |
 | Port Extender | MateDock 2 dongle included with laptop | Partly tested | full-size HDMI and D-SUB not tested, USB-C and USB-A work as expected |
 
 ## Power Button
