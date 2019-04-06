@@ -1,0 +1,32 @@
+--- a/drivers/hid/i2c-hid/i2c-hid.c
++++ b/drivers/hid/i2c-hid/i2c-hid.c
+@@ -49,6 +49,7 @@
+ #define I2C_HID_QUIRK_NO_IRQ_AFTER_RESET	BIT(1)
+ #define I2C_HID_QUIRK_NO_RUNTIME_PM		BIT(2)
+ #define I2C_HID_QUIRK_DELAY_AFTER_SLEEP		BIT(3)
++#define I2C_HID_QUIRK_BOGUS_IRQ			BIT(4)
+ 
+ /* flags */
+ #define I2C_HID_STARTED		0
+@@ -174,6 +175,8 @@
+ 	{ I2C_VENDOR_ID_HANTICK, I2C_PRODUCT_ID_HANTICK_5288,
+ 		I2C_HID_QUIRK_NO_IRQ_AFTER_RESET |
+ 		I2C_HID_QUIRK_NO_RUNTIME_PM },
++	{ USB_VENDOR_ID_ELAN, HID_ANY_ID,
++		 I2C_HID_QUIRK_BOGUS_IRQ },
+ 	{ I2C_VENDOR_ID_RAYDIUM, I2C_PRODUCT_ID_RAYDIUM_4B33,
+ 		I2C_HID_QUIRK_DELAY_AFTER_SLEEP },
+ 	{ 0, 0 }
+@@ -500,6 +503,12 @@
+ 		return;
+ 	}
+ 
++	if (ihid->quirks & I2C_HID_QUIRK_BOGUS_IRQ && ret_size == 0xffff) {
++		dev_warn_once(&ihid->client->dev, "%s: IRQ triggered but "
++			      "there's no data\n", __func__);
++		return;
++	}
++
+ 	if ((ret_size > size) || (ret_size < 2)) {
+ 		dev_err(&ihid->client->dev, "%s: incomplete report (%d/%d)\n",
+ 			__func__, size, ret_size);

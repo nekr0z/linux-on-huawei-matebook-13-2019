@@ -31,9 +31,13 @@ I am running Debian on the more simple MateBook 13 variant, model Wright-W19. Th
 | Lid | ACPI-compliant |  ✔ Yes | works as expected, though ACPI complains in logs |
 | Power management | | ✔ Yes | works, [see below](#power-management) for details |
 | Keyboard |  | ❕ Mostly | backlight and backlight control work, Fn+Key combinations work (including non-documented Fn+Up/Down = PgUp/PgDn, Fn+Left/Right = Home/End), volume control works, microphone switch doesn't, display switch works, Wifi switch doesn't, Huawei key doesn't; those that don't generate nothing in ACPI logs or `xev` |
-| Touchpad | ELAN962C:00 04F3:30D0 | ⁉ Kinda | touchpad is detected and works in KDE (though not in Debian installer), but almost all options are greyed out; double- and three-finger clicks work, so does double-finger scrolling, multi-touch gestures can not be set up; upon every touch floods system logs with error messages (`incomplete report (14/65535)`) - up to the point where rubbing your finger against touchpad produces 15% CPU usage by syslog |
+| Touchpad | ELAN962C:00 04F3:30D0 | ⁉ Kinda | touchpad is detected and works in KDE (though not in Debian installer), but almost all options are greyed out; double- and three-finger clicks work, so does double-finger scrolling, multi-touch gestures can not be set up; [see below](#touchpad) for details on log flood issue |
 | Port Extender | MateDock 2 dongle included with laptop | ✅ Partly tested | full-size HDMI and D-SUB not tested, USB-C and USB-A work as expected |
 
 ## Power Management
 
 Suspend to S3 state works out of the box. For hibernation to work `Secure boot` must be disabled in BIOS. Laptop seems to wake up without any issues.
+
+## Touchpad
+
+Out of the box touchpad floods system logs with error messages `incomplete report (14/65535)` upon every touch - up to the point where rubbing your finger against touchpad produces 15% CPU usage by syslog. The [corresponding patch](https://patchwork.kernel.org/patch/10750063/) is available in mainline kernel, but not in Debian (yet), and the patch can not be directly applied to the kernel version currently in Debian. Patching the kernel with [adapted patch](elan-touchpad-oldkernel.patch) fixes this issue.
