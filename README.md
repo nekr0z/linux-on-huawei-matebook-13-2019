@@ -32,7 +32,7 @@ I am running Debian on the more simple MateBook 13 variant, model Wright-W19. Th
 | Power management | | ✔ Yes | works, [see below](#power-management) for details |
 | Keyboard |  | ❕ Mostly | backlight and backlight control work, Fn+Key combinations work (including non-documented Fn+Up/Down = PgUp/PgDn, Fn+Left/Right = Home/End), volume control works, microphone switch doesn't, display switch works, Wifi switch doesn't, Huawei key doesn't; those that don't generate nothing in ACPI logs or `xev` |
 | Touchpad | ELAN962C:00 04F3:30D0 | ⁉ Kinda | touchpad is detected and works in KDE (though not in Debian installer), but almost all options are greyed out; double- and three-finger clicks work, so does double-finger scrolling, multi-touch gestures can not be set up; [see below](#touchpad) for details on log flood issue |
-| Port Extender | MateDock 2 dongle included with the laptop | ✅ Partly tested | D-SUB not tested, full-size HDMI, USB-C and USB-A work as expected |
+| Port Extender | MateDock 2 dongle included with the laptop | ✔ Yes | D-SUB, full-size HDMI, USB-C and USB-A work as expected |
 
 ## Power Management
 
