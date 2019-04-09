@@ -30,13 +30,18 @@ I am running Debian on the more simple MateBook 13 variant, model Wright-W19. Th
 | Battery | Dynapack 42 Wh Lithium-Polymer | ✔ Yes | everything works: current status, chargin/discharging rate and remaining battery time estimates |
 | Lid | ACPI-compliant |  ✔ Yes | works as expected, though ACPI complains in logs |
 | Power management | | ✔ Yes | works, [see below](#power-management) for details |
-| Keyboard |  | ❕ Mostly | backlight and backlight control work, Fn+Key combinations work (including non-documented Fn+Up/Down = PgUp/PgDn, Fn+Left/Right = Home/End), volume control works, microphone switch doesn't, display switch works, Wifi switch doesn't, Huawei key doesn't; those that don't generate nothing in ACPI logs or `xev` |
+| Keyboard |  | ❕ Mostly | [see below](#keyboard) for details; microphone mute LED doesn't work |
 | Touchpad | ELAN962C:00 04F3:30D0 | ⁉ Kinda | touchpad is detected and works in KDE (though not in Debian installer), but almost all options are greyed out; double- and three-finger clicks work, so does double-finger scrolling, multi-touch gestures can not be set up; [see below](#touchpad) for details on log flood issue |
 | Port Extender | MateDock 2 dongle included with the laptop | ✔ Yes | D-SUB, full-size HDMI, USB-C and USB-A work as expected |
 
 ## Power Management
 
 Suspend to S3 state works out of the box. For hibernation to work `Secure boot` must be disabled in BIOS. Laptop seems to wake up without any issues.
+
+## Keyboard
+Keyboard mostly works out of the box, including the not-so-documented hotkeys (Fn+Left for Home, Fn+Right for End, Fn+Up for PgUp, Fn+Down for PgDn). However, Microphone Mute, WiFi Switch and Huawei keys don't work out of the box.
+
+To have them working there's [a patch](https://github.com/aymanbagabas/Huawei-WMI) that is already incorporated in Linux kernel, just not yet in Debian. It can be installed using DKMS .deb package that the author [provides](https://github.com/aymanbagabas/Huawei-WMI/releases).
 
 ## Touchpad
 
