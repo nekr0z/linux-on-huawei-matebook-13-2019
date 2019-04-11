@@ -42,7 +42,7 @@ Keyboard mostly works out of the box, including the not-so-documented hotkeys (F
 
 To have them working there's [a patch](https://github.com/aymanbagabas/Huawei-WMI) that is already incorporated in Linux kernel, just not yet in Debian. It can be installed using DKMS .deb package that the author [provides](https://github.com/aymanbagabas/Huawei-WMI/releases).
 
-The same source seems to have a patch for Microphone Mute LED to work (at least on MateBook X). However, I yet to find time to backport it to current Debian kernel and test.
+The same source seems to have a patch for Microphone Mute LED to work (at least on MateBook X). However, I have yet to find time to backport it to current Debian kernel and test.
 
 ## Touchpad
 
