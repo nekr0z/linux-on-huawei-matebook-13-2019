@@ -26,7 +26,7 @@ I am running Debian on the more simple MateBook 13 variant, model Wright-W19. Th
 | Ports | 2 × USB-C | ✔ Yes | charging works only via left port, external display only via right one, but it is a known hardware limitation of the laptop |
 | Power button |  | ✔ Yes | needs to be pressed for at least a second to generate event |
 | Fingerprint Reader | some proprietary sensor | ❌ No | located on the power button  |
-| Battery | Dynapack 42 Wh Lithium-Polymer | ✔ Yes | everything works: current status, chargin/discharging rate and remaining battery time estimates |
+| Battery | Dynapack 42 Wh Lithium-Polymer | ✔ Yes | everything works: current status, charging/discharging rate and remaining battery time estimates |
 | Lid | ACPI-compliant |  ✔ Yes | works as expected, though ACPI complains in logs |
 | Power management | | ✔ Yes | works, [see below](#power-management) for details |
 | Keyboard |  | ❕ Mostly | [see below](#keyboard) for details; microphone mute LED doesn't work |
@@ -41,6 +41,8 @@ Suspend to S3 state works out of the box. For hibernation to work `Secure boot` 
 Keyboard mostly works out of the box, including the not-so-documented hotkeys (Fn+Left for Home, Fn+Right for End, Fn+Up for PgUp, Fn+Down for PgDn). However, Microphone Mute, WiFi Switch and Huawei keys don't work out of the box.
 
 To have them working there's [a patch](https://github.com/aymanbagabas/Huawei-WMI) that is already incorporated in Linux kernel, just not yet in Debian. It can be installed using DKMS .deb package that the author [provides](https://github.com/aymanbagabas/Huawei-WMI/releases).
+
+The same source seems to have a patch for Microphone Mute LED to work (at least on MateBook X). However, I yet to find time to backport it to current Debian kernel and test.
 
 ## Touchpad
 
