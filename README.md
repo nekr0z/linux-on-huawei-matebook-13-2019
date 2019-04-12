@@ -26,7 +26,7 @@ I am running Debian on the more simple MateBook 13 variant, model Wright-W19. Th
 | Ports | 2 × USB-C | ✔ Yes | charging works only via left port, external display only via right one, but it is a known hardware limitation of the laptop |
 | Power button |  | ✔ Yes | needs to be pressed for at least a second to generate event |
 | Fingerprint Reader | some proprietary sensor | ❌ No | located on the power button  |
-| Battery | Dynapack 42 Wh Lithium-Polymer | ✔ Yes | everything works: current status, charging/discharging rate and remaining battery time estimates |
+| Battery | Dynapack HB4593J6ECW (42 Wh) | ❕ Mostly | basically, works: current status, charging/discharging rate and remaining battery time estimates; however, so far there seems to be no support for `natacpi`, so setting up charge/discharge thresholds via TLP is not available (it can be done on Windows using Huawei utility, so it should be technically possible) |
 | Lid | ACPI-compliant |  ✔ Yes | works as expected, though ACPI complains in logs |
 | Power management | | ✔ Yes | works, [see below](#power-management) for details |
 | Keyboard |  | ❕ Mostly | [see below](#keyboard) for details; microphone mute LED doesn't work |
