@@ -12,7 +12,7 @@ I am running Debian on the more simple MateBook 13 variant, model Wright-W19. Th
 
 | Device | Model |  Works | Notes |
 | --- | --- |  :---: | --- |
-| Processor | Intel Core i5-8265U | ✔ Yes | 8 cores, power states etc seem to work out of the box|
+| Processor | Intel Core i5-8265U | ✔ Yes | 8 cores, power states etc seem to work out of the box |
 | Graphics | Intel UHD Graphics 620 | ✔ Yes | via standard kernel driver |
 | Memory | 8192 MB | ✔ Yes |  |
 | Display | 13 inch 2:3, 2160x1440 (2K) | ✔ Yes | resolution is correctly detected by `xrandr`, backlight control works via native function keys and can be controlled by KDE settings |
@@ -60,6 +60,14 @@ sudo grub-install --boot-directory=/mnt/system/boot --bootloader-id=debian --tar
 ```
 
 Your mileage may vary.
+
+## Temperature
+
+Out of the box fan control is very much acceptable, with fans starting up as processor heats up under load and shutting down when not required. In general, under "office workload" the laptop remains cool and fans remain switched off.
+
+If you want correct CPU temperature displayed in `byobu` status notifications, add the following line to your `.byobu/statusrc`:
+
+    MONITORED_TEMP=/sys/class/hwmon/hwmon1/temp1_input
 
 ## Power Management
 
