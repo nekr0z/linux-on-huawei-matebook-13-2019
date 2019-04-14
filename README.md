@@ -19,7 +19,7 @@ I am running Debian on the more simple MateBook 13 variant, model Wright-W19. Th
 | Storage | Samsung SSD, 256 GB | ✔ Yes | via standard kernel driver |
 | Wifi | Intel Cannon Point Wireless-AC 8265 (a/b/g/n/ac) | ✔ Yes | requires kernel 4.14 and firmware (`firmware-iwlwifi` non-free package) |
 | Bluetooth | Intel Bluetooth 5.0| ✔ Yes | works as expected |
-| Soundcard  | Intel Cannon Point-LP High Definition Audio | ✔ Yes  | via standard kernel driver, works fine with `pulseaudio` |
+| Soundcard  | Intel Cannon Point-LP High Definition Audio | ❕ Mostly  | via standard kernel driver, works fine with `pulseaudio`; I couldn't get it to autodetect plugged headphones, but the headphone jack itself can be activated via KDE's systray widget, it just doesn't do that automatically |
 | Speakers  |  | ✔ Yes |  |
 | Microphone | | ✔ Yes | out of the box |
 | Webcam | HD Camera (13D3:56C6) | ✔ Yes | works out of the box, indicating light too |
