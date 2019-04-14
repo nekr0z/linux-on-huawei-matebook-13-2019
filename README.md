@@ -19,7 +19,7 @@ I am running Debian on the more simple MateBook 13 variant, model Wright-W19. Th
 | Storage | Samsung SSD, 256 GB | ✔ Yes | via standard kernel driver |
 | Wifi | Intel Cannon Point Wireless-AC 8265 (a/b/g/n/ac) | ✔ Yes | requires kernel 4.14 and firmware (`firmware-iwlwifi` non-free package) |
 | Bluetooth | Intel Bluetooth 5.0| ✔ Yes | works as expected |
-| Soundcard  | Intel Cannon Point-LP High Definition Audio | ❕ Mostly  | via standard kernel driver, works fine with `pulseaudio`; I couldn't get it to autodetect plugged headphones, but the headphone jack itself can be activated via KDE's systray widget, it just doesn't do that automatically |
+| Soundcard  | Intel Cannon Point-LP High Definition Audio | ✔ Yes  | see [below](#soundcard) for details |
 | Speakers  |  | ✔ Yes |  |
 | Microphone | | ✔ Yes | out of the box |
 | Webcam | HD Camera (13D3:56C6) | ✔ Yes | works out of the box, indicating light too |
@@ -66,6 +66,12 @@ Out of the box fan control is very much acceptable, with fans starting up as pro
 If you want correct CPU temperature displayed in `byobu` status notifications, add the following line to your `.byobu/statusrc`:
 
     MONITORED_TEMP=/sys/class/hwmon/hwmon1/temp1_input
+
+## Soundcard
+
+Sound generally works OK out of the box, the only thing not working is headphones autodetection (i.e. it is necessary to manually switch from speakers to headphones and back). This can be fixed, as [pointed out](#3) by [ffftwo](https://github.com/ffftwo):
+
+    sudo echo "options snd_hda_intel model=dell-headset-multi" >> /etc/modprobe.d/sound.conf
 
 ## Battery
 
