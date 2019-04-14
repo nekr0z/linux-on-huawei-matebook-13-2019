@@ -71,7 +71,7 @@ If you want correct CPU temperature displayed in `byobu` status notifications, a
 
 Huawei's proprietary PC Manager allows to switch on battery protection with several modes for charge/discharge threshold while connected to AC power. For instance, it is possible to make the laptop maintain the battery charge between 40% and 60%, which is supposed to greatly reduce battery wear (batteries are known to lose capacity when constantly sitting at close to 100% charged). The problem is that Huawei PC Manager is a Windows-only piece of software.
 
-Battery protection works by enabling the function in battery controller and setting the thresholds for charging and discharging. The battery controller then contains the battery charge within specified limit. However, it is known that these settings are restored to defaults after time: on MateBook X it is [known to happen](http://disq.us/p/20z3s00) after a reboot or three, and Angry Ameba [demonstrated](https://4pda.ru/forum/index.php?showtopic=945809&view=findpost&p=84391501) (source in Russian) that battery controller settings get resored after several hours on a switched off MateBook 13. Obviously, Huawei PC Manager monitors this and restores these settings as required.
+Battery protection works by enabling the function in battery controller and setting the thresholds for charging and discharging. The battery controller then contains the battery charge within specified limit. However, it is known that these settings are restored to defaults after time: on MateBook X it is [known to happen](http://disq.us/p/20z3s00) after a reboot or three, and Angry Ameba [demonstrated](https://4pda.ru/forum/index.php?showtopic=945809&view=findpost&p=84391501) (source in Russian) that battery controller settings get reset after several hours on a switched off MateBook 13. Obviously, Huawei PC Manager monitors this and restores these settings as required.
 
 The settings in question can be read and written through ACPI registers, and a working script [has been made](https://github.com/aymanbagabas/huawei_ec) by aymanbagabas to control the necessary registers on MateBook X. Unfortunately, the registers that store these settings are not the same on MateBook 13, so this script can only be used for inspiration and further work is required.
 
@@ -81,11 +81,11 @@ A much safer and better way to get the necessary data is to do on MateBook 13 wh
 
 1. a working Windows setup on a MateBook 13,
 2. ability to boot Linux (from a USB-drive, possibly),
-3. and some time to spend.
+3. some time to spend.
 
 Sadly, I lack the first prerequisite. **If you have all three and are willing to do it, your input will be highly appreciated!**
 
-If we find out which ACPI registers are responsible for battery protection settings, it would be possible to adapt aymanbagabas' work for MateBook 13 and have battery protection working on Linux. Furthermore, having this information may even make it possible to design a 'natacpi' driver for MateBook 13 so that these settings can be controlled by TLP and other tools.
+If we find out which ACPI registers are responsible for battery protection settings, it would be possible to adapt aymanbagabas' work for MateBook 13 and have battery protection working on Linux. Furthermore, having this information may even make it possible to design a `natacpi` driver for MateBook 13 so that these settings can be controlled by TLP and other tools.
 
 ## Power Management
 
