@@ -94,6 +94,16 @@ To have them working there's [a patch](https://github.com/aymanbagabas/Huawei-WM
 
 The same source seems to have a patch for Microphone Mute LED to work (at least on MateBook X). However, I have yet to find time to backport it to current Debian kernel and test.
 
+### Fn-Lock
+Behaviour of the top row of keys on MateBook 13 is somewhat complex. By default, they behave as special keys (brightness, volume, etc.), but if you press them simultaneously with Fn or any modifier (Ctrl, Alt, Shift) they behave as F-keys (F1 through F12). You can press Fn key once so that an LED on it lights up, then the top row of keys starts behaving as F-keys, with or without any modifier (including Fn). This behaviour can be lived with, but you can't do things like `Ctrl+Ins` or `Alt+Shift+PrtSc` (because `Inc` and `PrtSc` are `F11` and `F12`, respectively, and pressing them with modifier forces them to be F-keys).
+
+Fortunately, Huawei's PC Manager has an option to invert this behaviour. If an option is activated (we call this option `Fn-Lock`), the upper row of keys become F-keys, and act like special keys only when Fn is pressed or switched on. In this mode other modifiers don't change behaviour, so it becomes possible to do `Shift+Ins` and such. Unfortunately, PC Manager is Windows-only.
+
+But thanks to the [input](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/issues/2) of [aymanbagabas](https://github.com/aymanbagabas) and based heavily on [his work](https://github.com/aymanbagabas/huawei-ec) and [information](https://4pda.ru/forum/index.php?showtopic=945809&view=findpost&p=84442098) supplied by [Angry Ameba](http://4pda.ru/forum/index.php?showuser=5416449), Fn-Lock option is now accessible in Linux with a [simple script](fnlock).
+
+The script depends on `ioport` (available as package in Debian) and needs to be run as root:
+    sudo fnlock [on|off|toggle|status]
+
 ## Touchpad
 
 Out of the box touchpad floods system logs with error messages `incomplete report (14/65535)` upon every touch - up to the point where rubbing your finger against touchpad produces 15% CPU usage by syslog. The [corresponding patch](https://patchwork.kernel.org/patch/10750063/) is available in mainline kernel, but not in Debian (yet), and the patch can not be directly applied to the kernel version currently in Debian. Patching the kernel with [adapted patch](elan-touchpad-oldkernel.patch) fixes this issue.

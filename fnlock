@@ -1,0 +1,122 @@
+#!/bin/bash
+
+# Copyright (C) 2019  Ayman Bagabas (ayman.bagabas@gmail.com), Evgeny Kuznetsov (evgeny@kuznetsov.md)
+# Licensed under GNU GPL v2.0
+
+declare -A options=(
+	#  name		desc
+	["status"]="show current Fn-Lock status"
+	["on"]="switch on Fn-Lock"
+	["off"]="switch off Fn-Lock (default state)"
+	["toggle"]="toggle Fn-Lock (from on to off or vice versa)"
+)
+
+_help() {
+	cat <<EOF
+$0 OPTION
+
+OPTIONS:
+EOF
+	for i in "${!options[@]}"; do
+		echo "	$i - ${options[$i]}";
+	done
+}
+
+_error() {
+	echo "wrong input!
+	"
+	_help
+	exit 1
+}
+
+wait_read() {
+	for i in {1..10000}; do
+		if ! [ $((0x$(inb --hex $1) & 0x01)) -eq 0 ]; then
+			break
+		fi
+		sleep 0.01
+	done
+	! [ $i -eq 10000 ]
+}
+
+wait_write() {
+	for i in {1..10000}; do
+		if [ $((0x$(inb --hex $1) & 0x02)) -eq 0 ]; then
+			break
+		fi
+		sleep 0.01
+	done
+	! [ $i -eq 10000 ]
+}
+
+wait_read_ec() {
+	wait_read 0x66
+	return $?
+}
+
+wait_write_ec() {
+	wait_write 0x66
+	return $?
+}
+
+read_ec() {
+	wait_write_ec && outb 0x66 0x80
+	wait_write_ec && outb 0x62 $1
+	wait_read_ec && res=$(inb 0x62)
+	echo "REG[$1]==$(printf '0x%x' $res)" >&2
+	return "$res"
+}
+
+write_ec() {
+	read_ec $1
+	echo "REG[$1]:=$2" >&2
+	wait_write_ec && outb 0x66 0x81
+	wait_write_ec && outb 0x62 $1
+	wait_write_ec && outb 0x62 $2
+	read_ec $1
+}
+
+# Check root
+if [ $(id -u) -ne 0 ]; then
+	echo "This script must be run as root"
+	exit 1
+fi
+
+# Check necessary packages
+if ! [ -x "$(command -v inb)" -a -x "$(command -v outb)" ]; then
+	echo "ioport was not found!"
+	echo "Please install ioport"
+	exit 1
+fi
+
+case "$1" in
+	"on")
+		write_ec 0x08 0x2
+		;;
+	"off")
+		write_ec 0x08 0x0
+		;;
+	"status")
+		read_ec 0x08
+		res=$(printf '0x%x' "$?")
+		if [ "$(($res & 0x2))" != 0 ]; then
+		        echo "on"
+		else
+			echo "off"
+		fi
+		;;
+	"toggle")
+		read_ec 0x08
+		res=$(printf '0x%x' "$?")
+		if [ "$(($res & 0x2))" != 0 ]; then
+		        write_ec 0x08 0x0
+		else
+			write_ec 0x08 0x2
+		fi
+		;;
+	*)
+		_help
+		;;
+esac
+
+exit 0
