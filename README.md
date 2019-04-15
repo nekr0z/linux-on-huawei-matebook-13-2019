@@ -79,19 +79,13 @@ Huawei's proprietary PC Manager allows to switch on battery protection with seve
 
 Battery protection works by enabling the function in battery controller and setting the thresholds for charging and discharging. The battery controller then contains the battery charge within specified limit. However, it is known that these settings are restored to defaults after time: on MateBook X it is [known to happen](http://disq.us/p/20z3s00) after a reboot or three, and Angry Ameba [demonstrated](https://4pda.ru/forum/index.php?showtopic=945809&view=findpost&p=84391501) (source in Russian) that battery controller settings get reset after several hours on a switched off MateBook 13. Obviously, Huawei PC Manager monitors this and restores these settings as required.
 
-The settings in question can be read and written through ACPI registers, and a working script [has been made](https://github.com/aymanbagabas/huawei_ec) by aymanbagabas to control the necessary registers on MateBook X. Unfortunately, the registers that store these settings are not the same on MateBook 13, so this script can only be used for inspiration and further work is required.
+The settings in question can be read and written through Embedded Controller registers, and a working script [has been made](https://github.com/aymanbagabas/huawei_ec) by aymanbagabas to control the necessary registers on MateBook X. Unfortunately, the registers that store these settings are not the same on MateBook 13, so this script can only be used for inspiration and further work is required.
 
-One way to approach this issue would be to randomly poke at ACPI registers by setting them to various values and hoping for the best. This is obviously a very unsafe approach, as it would be easy to overwrite some things that are not supposed to be overwritten and potentially even damage the embedded controller. This is not advisable.
+One way to approach this issue would be to randomly poke at EC registers by setting them to various values and hoping for the best. This is obviously a very unsafe approach, as it would be easy to overwrite some things that are not supposed to be overwritten and potentially even damage the embedded controller. This is not advisable.
 
-A much safer and better way to get the necessary data is to do on MateBook 13 what [andmarios did on MateBook X](http://disq.us/p/20z3s00): adjust the settings in Windows, then reboot to Linux and look at the ACPI registers to see which of them hold the required data. This obviously requires
+A much safer and better way to get the necessary data is to do on MateBook 13 what [andmarios did on MateBook X](http://disq.us/p/20z3s00): adjust the settings in Windows then look at EC registers using something like [RWEverything](http://rweverything.com). Sadly, I don't have Windows on my MateBook 13 anymore. **If you are willing to do it, your input will be highly appreciated!**
 
-1. a working Windows setup on a MateBook 13,
-2. ability to boot Linux (from a USB-drive, possibly),
-3. some time to spend.
-
-Sadly, I lack the first prerequisite. **If you have all three and are willing to do it, your input will be highly appreciated!**
-
-If we find out which ACPI registers are responsible for battery protection settings, it would be possible to adapt aymanbagabas' work for MateBook 13 and have battery protection working on Linux. Furthermore, having this information may even make it possible to design a `natacpi` driver for MateBook 13 so that these settings can be controlled by TLP and other tools.
+If we find out which EC registers are responsible for battery protection settings, it would be possible to adapt aymanbagabas' work for MateBook 13 and have battery protection working on Linux. This would be a dirty hack, and the proper solution would require someone with knowledge to properly understand DSDT and SSDTs to design a `natacpi` driver for MateBook 13 so that these settings can be controlled by TLP and other tools.
 
 ## Power Management
 
