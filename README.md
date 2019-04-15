@@ -81,11 +81,7 @@ Battery protection works by enabling the function in battery controller and sett
 
 The settings in question can be read and written through Embedded Controller registers, and a working script [has been made](https://github.com/aymanbagabas/huawei_ec) by aymanbagabas to control the necessary registers on MateBook X. Unfortunately, the registers that store these settings are not the same on MateBook 13, so this script can only be used for inspiration and further work is required.
 
-One way to approach this issue would be to randomly poke at EC registers by setting them to various values and hoping for the best. This is obviously a very unsafe approach, as it would be easy to overwrite some things that are not supposed to be overwritten and potentially even damage the embedded controller. This is not advisable.
-
-A much safer and better way to get the necessary data is to do on MateBook 13 what [andmarios did on MateBook X](http://disq.us/p/20z3s00): adjust the settings in Windows then look at EC registers using something like [RWEverything](http://rweverything.com). Sadly, I don't have Windows on my MateBook 13 anymore. **If you are willing to do it, your input will be highly appreciated!**
-
-If we find out which EC registers are responsible for battery protection settings, it would be possible to adapt aymanbagabas' work for MateBook 13 and have battery protection working on Linux. This would be a dirty hack, and the proper solution would require someone with knowledge to properly understand DSDT and SSDTs to design a `natacpi` driver for MateBook 13 so that these settings can be controlled by TLP and other tools.
+We [already have](#2) series of EC register dumps kindly supplied by [Angry Ameba](http://4pda.ru/forum/index.php?showuser=5416449). As soon as we find out which EC registers are responsible for battery protection settings, it should be possible to adapt aymanbagabas' work for MateBook 13 and have battery protection working on Linux. This would be a dirty hack, and the proper solution would require someone with knowledge to properly understand DSDT and SSDTs to design a `natacpi` driver for MateBook 13 so that these settings can be controlled by TLP and other tools.
 
 ## Power Management
 
