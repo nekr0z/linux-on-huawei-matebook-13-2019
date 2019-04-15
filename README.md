@@ -69,7 +69,7 @@ If you want correct CPU temperature displayed in `byobu` status notifications, a
 
 ## Soundcard
 
-Sound generally works OK out of the box, the only thing not working is headphones autodetection (i.e. it is necessary to manually switch from speakers to headphones and back). This can be fixed, as [pointed out](#3) by [ffftwo](https://github.com/ffftwo):
+Sound generally works OK out of the box, the only thing not working is headphones autodetection (i.e. it is necessary to manually switch from speakers to headphones and back). This can be fixed, as [pointed out](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/issues/3) by [ffftwo](https://github.com/ffftwo):
 
     sudo echo "options snd_hda_intel model=dell-headset-multi" >> /etc/modprobe.d/sound.conf
 
@@ -81,7 +81,7 @@ Battery protection works by enabling the function in battery controller and sett
 
 The settings in question can be read and written through Embedded Controller registers, and a working script [has been made](https://github.com/aymanbagabas/huawei_ec) by aymanbagabas to control the necessary registers on MateBook X. Unfortunately, the registers that store these settings are not the same on MateBook 13, so this script can only be used for inspiration and further work is required.
 
-We [already have](#2) series of EC register dumps kindly supplied by [Angry Ameba](http://4pda.ru/forum/index.php?showuser=5416449). As soon as we find out which EC registers are responsible for battery protection settings, it should be possible to adapt aymanbagabas' work for MateBook 13 and have battery protection working on Linux. This would be a dirty hack, and the proper solution would require someone with knowledge to properly understand DSDT and SSDTs to design a `natacpi` driver for MateBook 13 so that these settings can be controlled by TLP and other tools.
+We [already have](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/issues/2) series of EC register dumps kindly supplied by [Angry Ameba](http://4pda.ru/forum/index.php?showuser=5416449). As soon as we find out which EC registers are responsible for battery protection settings, it should be possible to adapt aymanbagabas' work for MateBook 13 and have battery protection working on Linux. This would be a dirty hack, and the proper solution would require someone with knowledge to properly understand DSDT and SSDTs to design a `natacpi` driver for MateBook 13 so that these settings can be controlled by TLP and other tools.
 
 ## Power Management
 
