@@ -97,7 +97,17 @@ The same source seems to have a patch for Microphone Mute LED to work (at least 
 ### Fn-Lock
 Behaviour of the top row of keys on MateBook 13 is somewhat complex. By default, they behave as special keys (brightness, volume, etc.), but if you press them simultaneously with `Fn` or any modifier (`Ctrl`, `Alt`, `Shift`) they behave as F-keys (`F1` through `F12`). You can press `Fn` once so that an LED on it lights up, then the top row of keys starts behaving as F-keys, with or without any modifier (including `Fn` itself). This behaviour can be lived with, but you can't do things like `Ctrl`+`Ins` or `Alt`+`Shift`+`PrtSc` (because `Ins` and `PrtSc` are `F11` and `F12`, respectively, and pressing them with modifier forces them to be F-keys).
 
-Fortunately, Huawei's PC Manager has an option to invert this behaviour. If an option is activated (we call this option `Fn-Lock`), the upper row of keys become F-keys, and act like special keys only when `Fn` is pressed or switched on. In this mode other modifiers don't change behaviour, so it becomes possible to do `Shift`+`Ins` and such. Unfortunately, PC Manager is Windows-only.
+> Since BIOS v1.05 this behaviour was changed slightly for `PrtSc` and `Ins` keys (`F11` and `F12`). Without `Fn` key, the keys work as follows:
+> 
+> | Key | Shift | Ctrl | Alt |
+> | --- | --- | --- | --- |
+> | `F10` | Shift+F10 | Ctrl+F10 | Alt+F10 |
+> | `F11` | Shift+PrtSc | Ctrl+PrtSc | no keypress |
+> | `F12` | Shift+Ins | Ctrl+Ins | Alt+Ins |
+>
+> Still no way to do `Alt`+`PrtSc`.
+
+Fortunately, Huawei's PC Manager has an option to invert this behaviour. If an option is activated (we call this option `Fn-Lock`), the upper row of keys become F-keys, and act like special keys only when `Fn` is pressed or switched on. In this mode other modifiers don't change behaviour, so it becomes possible to do `Alt`+`PrtSc`. Unfortunately, PC Manager is Windows-only.
 
 But thanks to the [input](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/issues/2) of [aymanbagabas](https://github.com/aymanbagabas) and based heavily on [his work](https://github.com/aymanbagabas/huawei-ec) and [information](https://4pda.ru/forum/index.php?showtopic=945809&view=findpost&p=84442098) supplied by [Angry Ameba](http://4pda.ru/forum/index.php?showuser=5416449), Fn-Lock option is now accessible in Linux with a [simple script](fnlock).
 
