@@ -109,7 +109,7 @@ Behaviour of the top row of keys on MateBook 13 is somewhat complex. By default,
 
 Fortunately, Huawei's PC Manager has an option to invert this behaviour. If an option is activated (we call this option `Fn-Lock`), the upper row of keys become F-keys, and act like special keys only when `Fn` is pressed or switched on. In this mode other modifiers don't change behaviour, so it becomes possible to do `Alt`+`PrtSc`. Unfortunately, PC Manager is Windows-only.
 
-But thanks to the [input](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/issues/2) of [aymanbagabas](https://github.com/aymanbagabas) and based heavily on [his work](https://github.com/aymanbagabas/huawei-ec) and [information](https://4pda.ru/forum/index.php?showtopic=945809&view=findpost&p=84442098) supplied by [Angry Ameba](http://4pda.ru/forum/index.php?showuser=5416449), Fn-Lock option is now accessible in Linux with a [simple script](fnlock).
+But thanks to the [input](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/issues/2) of [aymanbagabas](https://github.com/aymanbagabas) and based heavily on [his work](https://github.com/aymanbagabas/huawei_ec) and [information](https://4pda.ru/forum/index.php?showtopic=945809&view=findpost&p=84442098) supplied by [Angry Ameba](http://4pda.ru/forum/index.php?showuser=5416449), Fn-Lock option is now accessible in Linux with a [simple script](fnlock).
 
 The script depends on `ioport` (available as package in Debian) and needs to be run as root:
 
