@@ -26,7 +26,7 @@ I am running Debian on the more simple MateBook 13 variant, model Wright-W19. Th
 | Ports | 2 × USB-C | ✔ Yes | charging works only via left port, external display only via right one, but it is a known hardware limitation of the laptop |
 | Power button |  | ✔ Yes | needs to be pressed for at least a second to generate event |
 | Fingerprint Reader | some proprietary sensor | ❌ No | located on the power button  |
-| Battery | Dynapack HB4593J6ECW (42 Wh) | ❕ Mostly | works: current status, charging/discharging rate and remaining battery time estimates; battery protection settings don't work yet, see [below](#battery) for details |
+| Battery | Dynapack HB4593J6ECW (42 Wh) | ✔ Yes | see [below](#battery) for details |
 | Lid | ACPI-compliant |  ✔ Yes | works as expected, though ACPI complains in logs |
 | Power management | | ✔ Yes | works, [see below](#power-management) for details |
 | Keyboard |  | ❕ Mostly | [see below](#keyboard) for details; microphone mute LED doesn't work |
@@ -75,13 +75,23 @@ Sound generally works OK out of the box, the only thing not working is headphone
 
 ## Battery
 
-Huawei's proprietary PC Manager allows to switch on battery protection with several modes for charge/discharge threshold while connected to AC power. For instance, it is possible to make the laptop maintain the battery charge between 40% and 60%, which is supposed to greatly reduce battery wear (batteries are known to lose capacity when constantly sitting at close to 100% charged). The problem is that Huawei PC Manager is a Windows-only piece of software.
+Main battery features, such as current status, charging/discharging rate and remaining time estimates work out of the box.
 
-Battery protection works by enabling the function in battery controller and setting the thresholds for charging and discharging. The battery controller then contains the battery charge within specified limit. However, it is known that these settings are restored to defaults after time: on MateBook X it is [known to happen](http://disq.us/p/20z3s00) after a reboot or three, and Angry Ameba [demonstrated](https://4pda.ru/forum/index.php?showtopic=945809&view=findpost&p=84391501) (source in Russian) that battery controller settings get reset after several hours on a switched off MateBook 13. Obviously, Huawei PC Manager monitors this and restores these settings as required.
+### Battery protection
 
-The settings in question can be read and written through Embedded Controller registers, and a working script [has been made](https://github.com/aymanbagabas/huawei_ec) by aymanbagabas to control the necessary registers on MateBook X. Unfortunately, the registers that store these settings are not the same on MateBook 13, so this script can only be used for inspiration and further work is required.
+Huawei's proprietary PC Manager allows to switch on battery protection with several modes for charge/discharge threshold while connected to AC power. For instance, it is possible to make the laptop maintain the battery charge between 40% and 70%, which is supposed to greatly reduce battery wear (batteries are known to lose capacity when constantly sitting at close to 100% charged). The problem is that Huawei PC Manager is a Windows-only piece of software.
 
-We [already have](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/issues/2) series of EC register dumps kindly supplied by [Angry Ameba](http://4pda.ru/forum/index.php?showuser=5416449). As soon as we find out which EC registers are responsible for battery protection settings, it should be possible to adapt aymanbagabas' work for MateBook 13 and have battery protection working on Linux. This would be a dirty hack, and the proper solution would require someone with knowledge to properly understand DSDT and SSDTs to design a `natacpi` driver for MateBook 13 so that these settings can be controlled by TLP and other tools.
+Thanks to information kindly supplied by [Angry Ameba](http://4pda.ru/forum/index.php?showuser=5416449) and invaluable [input](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/issues/2) provided by [aymanbagabas](https://github.com/aymanbagabas), there is now a [script](batpro) available to make it work in Linux. The script depends on `ioport` (available as package in Debian) and needs to be run as root:
+
+    sudo batpro [help|status|off|home|office|travel]
+
+The first three options are self-explanatory. `home` sets thresholds to 40% and 70%, `office` to 70% and 90%, `travel` to 95% and 100% (these are the three modes Huawei PC Manager makes available). You can also do
+
+    sudo batpro custom [1-100] [1-100]
+
+to set the thresholds to any percentages you like. This [batpro script](batpro) is really a modification of a more general [script by aymanbagabas](https://github.com/aymanbagabas/huawei_ec), so you can use that one instead if you like. Both are based on a dirty hack, and the proper solution would require someone with knowledge to design a `natacpi` driver for MateBook 13 so that these settings can be controlled by TLP and other tools.
+
+> Battery protection works by not charging the laptop if battery is already above the minimal threshold when plugged into AC, and stopping the charging as soon as the battery charge reaches the maximum threshold. The battery controller is known to restore the thresholds to defaults after time: on MateBook X it is [known to happen](http://disq.us/p/20z3s00) after a reboot or three, and Angry Ameba [demonstrated](https://4pda.ru/forum/index.php?showtopic=945809&view=findpost&p=84391501) (source in Russian) that battery controller settings get reset after several hours on a switched off MateBook 13. Obviously, Huawei PC Manager monitors this and restores these settings as required. Our scripts don't.
 
 ## Power Management
 
