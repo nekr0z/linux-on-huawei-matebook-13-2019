@@ -127,6 +127,8 @@ The script depends on `ioport` (available as package in Debian) and needs to be 
 
     sudo fnlock [on|off|toggle|status]
 
+The [system tray applet](https://github.com/nekr0z/matebook-applet/releases) also works (just in case you would rather have some GUI).
+
 ## Touchpad
 
 Out of the box touchpad floods system logs with error messages `incomplete report (14/65535)` upon every touch - up to the point where rubbing your finger against touchpad produces 15% CPU usage by syslog. The [corresponding patch](https://patchwork.kernel.org/patch/10750063/) is available in mainline kernel, but not in Debian (yet), and the patch can not be directly applied to the kernel version currently in Debian. Patching the kernel with [adapted patch](elan-touchpad-oldkernel.patch) fixes this issue.
