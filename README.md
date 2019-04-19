@@ -100,9 +100,9 @@ Suspend to S3 state works out of the box. For hibernation to work `Secure boot` 
 ## Keyboard
 Keyboard mostly works out of the box, including the not-so-documented hotkeys (Fn+Left for Home, Fn+Right for End, Fn+Up for PgUp, Fn+Down for PgDn). However, Microphone Mute, WiFi Switch and Huawei keys don't work out of the box.
 
-To have them working there's [a patch](https://github.com/aymanbagabas/Huawei-WMI) that is already incorporated in Linux kernel, just not yet in Debian. It can be installed using DKMS .deb package that the author [provides](https://github.com/aymanbagabas/Huawei-WMI/releases).
+To have them working there's [a patch](https://github.com/aymanbagabas/Huawei-WMI) that is already incorporated in Linux kernel, just not yet in Debian. It can be installed (v1.0) using DKMS .deb package that the author [provides](https://github.com/aymanbagabas/Huawei-WMI/releases).
 
-The same source seems to have a patch for Microphone Mute LED to work (at least on MateBook X). However, I have yet to find time to backport it to current Debian kernel and test.
+Version v2.0 of the same patch is supposed to have support for Microphone Mute LED, but it requires kernel 5.0 or later, which Debian doesn't currently have, so I didn't test it yet.
 
 ### Fn-Lock
 Behaviour of the top row of keys on MateBook 13 is somewhat complex. By default, they behave as special keys (brightness, volume, etc.), but if you press them simultaneously with `Fn` or any modifier (`Ctrl`, `Alt`, `Shift`) they behave as F-keys (`F1` through `F12`). You can press `Fn` once so that an LED on it lights up, then the top row of keys starts behaving as F-keys, with or without any modifier (including `Fn` itself). This behaviour can be lived with, but you can't do things like `Ctrl`+`Ins` or `Alt`+`Shift`+`PrtSc` (because `Ins` and `PrtSc` are `F11` and `F12`, respectively, and pressing them with modifier forces them to be F-keys).
@@ -114,7 +114,7 @@ Behaviour of the top row of keys on MateBook 13 is somewhat complex. By default,
 > | `F10` | Shift+F10 | Ctrl+F10 | Alt+F10 |
 > | `F11` | Shift+PrtSc | Ctrl+PrtSc | no keypress |
 > | `F12` | Shift+Ins | Ctrl+Ins | Alt+Ins |
->
+> 
 > Still no way to do `Alt`+`PrtSc`.
 
 Fortunately, Huawei's PC Manager has an option to invert this behaviour. If an option is activated (we call this option `Fn-Lock`), the upper row of keys become F-keys, and act like special keys only when `Fn` is pressed or switched on. In this mode other modifiers don't change behaviour, so it becomes possible to do `Alt`+`PrtSc`. Unfortunately, PC Manager is Windows-only.
