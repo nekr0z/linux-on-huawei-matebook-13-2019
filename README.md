@@ -81,7 +81,7 @@ Main battery features, such as current status, charging/discharging rate and rem
 
 Huawei's proprietary PC Manager allows to switch on battery protection with several modes for charge/discharge threshold while connected to AC power. For instance, it is possible to make the laptop maintain the battery charge between 40% and 70%, which is supposed to greatly reduce battery wear (batteries are known to lose capacity when constantly sitting at close to 100% charged). The problem is that Huawei PC Manager is a Windows-only piece of software.
 
-Thanks to information kindly supplied by [Angry Ameba](http://4pda.ru/forum/index.php?showuser=5416449) and invaluable [input](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/issues/2) provided by [aymanbagabas](https://github.com/aymanbagabas), there is now a [script](batpro) available to make it work in Linux. The script depends on `ioport` (available as package in Debian) and needs to be run as root:
+Thanks to information kindly supplied by [Angry Ameba](http://4pda.ru/forum/index.php?showuser=5416449) and invaluable [input](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/issues/2) provided by [aymanbagabas](https://github.com/aymanbagabas), there is now a [script](batpro) available to make it work in Linux (you can download archive with this and the other script from [releases](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/releases) page). The script depends on `ioport` (available as package in Debian) and needs to be run as root:
 
     sudo batpro [help|status|off|home|office|travel]
 
@@ -121,7 +121,7 @@ Behaviour of the top row of keys on MateBook 13 is somewhat complex. By default,
 
 Fortunately, Huawei's PC Manager has an option to invert this behaviour. If an option is activated (we call this option `Fn-Lock`), the upper row of keys become F-keys, and act like special keys only when `Fn` is pressed or switched on. In this mode other modifiers don't change behaviour, so it becomes possible to do `Alt`+`PrtSc`. Unfortunately, PC Manager is Windows-only.
 
-But thanks to the [input](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/issues/2) of [aymanbagabas](https://github.com/aymanbagabas) and based heavily on [his work](https://github.com/aymanbagabas/huawei_ec) and [information](https://4pda.ru/forum/index.php?showtopic=945809&view=findpost&p=84442098) supplied by [Angry Ameba](http://4pda.ru/forum/index.php?showuser=5416449), Fn-Lock option is now accessible in Linux with a [simple script](fnlock).
+But thanks to the [input](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/issues/2) of [aymanbagabas](https://github.com/aymanbagabas) and based heavily on [his work](https://github.com/aymanbagabas/huawei_ec) and [information](https://4pda.ru/forum/index.php?showtopic=945809&view=findpost&p=84442098) supplied by [Angry Ameba](http://4pda.ru/forum/index.php?showuser=5416449), Fn-Lock option is now accessible in Linux with a [simple script](fnlock) (you can download archive with this and the other script from [releases](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/releases) page).
 
 The script depends on `ioport` (available as package in Debian) and needs to be run as root:
 
