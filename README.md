@@ -29,7 +29,7 @@ I am running Debian on the more simple MateBook 13 variant, model Wright-W19. Th
 | Battery | Dynapack HB4593J6ECW (42 Wh) | ✔ Yes | see [below](#battery) for details |
 | Lid | ACPI-compliant |  ✔ Yes | works as expected, though ACPI complains in logs |
 | Power management | | ✔ Yes | works, [see below](#power-management) for details |
-| Keyboard |  | ❕ Mostly | [see below](#keyboard) for details; microphone mute LED doesn't work |
+| Keyboard |  | ✔ Yes | [see below](#keyboard) for details |
 | Touchpad | ELAN962C:00 04F3:30D0 | ⁉ Kinda | touchpad is detected and works in KDE (though not in Debian installer), but almost all options are greyed out; double- and three-finger clicks work, so does double-finger scrolling, multi-touch gestures can not be set up; [see below](#touchpad) for details on log flood issue |
 | Port Extender | MateDock 2 dongle included with the laptop | ✔ Yes | D-SUB, full-size HDMI, USB-C and USB-A work as expected |
 
@@ -104,7 +104,7 @@ Keyboard mostly works out of the box, including the not-so-documented hotkeys (F
 
 To have them working there's [a patch](https://github.com/aymanbagabas/Huawei-WMI) that is already incorporated in Linux kernel, just not yet in Debian. It can be installed (v1.0) using DKMS .deb package that the author [provides](https://github.com/aymanbagabas/Huawei-WMI/releases).
 
-Version v2.0 of the same patch is supposed to have support for Microphone Mute LED, but it requires kernel 5.0 or later, which Debian doesn't currently have, so I didn't test it yet.
+[Latest developments](https://github.com/aymanbagabas/Huawei-WMI/issues/8#issuecomment-485815254) of the same driver allow for the Microphone LED to work, too. Unfortunately, this requires running kernel 5.0 or later (avalable from Debian Experimental).
 
 ### Fn-Lock
 Behaviour of the top row of keys on MateBook 13 is somewhat complex. By default, they behave as special keys (brightness, volume, etc.), but if you press them simultaneously with `Fn` or any modifier (`Ctrl`, `Alt`, `Shift`) they behave as F-keys (`F1` through `F12`). You can press `Fn` once so that an LED on it lights up, then the top row of keys starts behaving as F-keys, with or without any modifier (including `Fn` itself). This behaviour can be lived with, but you can't do things like `Ctrl`+`Ins` or `Alt`+`Shift`+`PrtSc` (because `Ins` and `PrtSc` are `F11` and `F12`, respectively, and pressing them with modifier forces them to be F-keys).
