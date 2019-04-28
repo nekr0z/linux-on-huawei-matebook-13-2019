@@ -132,3 +132,15 @@ The [system tray applet](https://github.com/nekr0z/matebook-applet/releases) als
 ## Touchpad
 
 Out of the box touchpad floods system logs with error messages `incomplete report (14/65535)` upon every touch - up to the point where rubbing your finger against touchpad produces 15% CPU usage by syslog. The [corresponding patch](https://patchwork.kernel.org/patch/10750063/) is available in mainline kernel, but not in Debian (yet), and the patch can not be directly applied to the kernel version currently in Debian. Patching the kernel with [adapted patch](elan-touchpad-oldkernel.patch) fixes this issue.
+
+A quick (and, admittedly, dirty) way to patch a Debian kernel:
+```
+$ apt source linux
+$ cd linux-4.19.28 		<<< or whatever version is current
+$ bash debian/bin/test-patches ../elan-touchpad-oldkernel.patch 	<<< or whichever one you're applying, and you can apply more than one here
+
+<<< have a beer or three, this is going to take quite some time
+
+$ cd ..
+$ sudo apt install linux-image-4.19.0-4-amd64-unsigned_4.19.28-2a~test_amd64.deb	<<< or whichever you've just compiled
+```
