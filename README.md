@@ -142,5 +142,5 @@ $ bash debian/bin/test-patches ../elan-touchpad-oldkernel.patch 	<<< or whicheve
 <<< have a beer or three, this is going to take quite some time
 
 $ cd ..
-$ sudo apt install linux-image-4.19.0-4-amd64-unsigned_4.19.28-2a~test_amd64.deb	<<< or whichever you've just compiled
+$ sudo dpkg -i linux-image-4.19.0-4-amd64-unsigned_4.19.28-2a~test_amd64.deb	<<< or whichever you've just compiled
 ```
