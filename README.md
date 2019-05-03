@@ -81,7 +81,9 @@ Main battery features, such as current status, charging/discharging rate and rem
 
 Huawei's proprietary PC Manager allows to switch on battery protection with several modes for charge/discharge threshold while connected to AC power. For instance, it is possible to make the laptop maintain the battery charge between 40% and 70%, which is supposed to greatly reduce battery wear (batteries are known to lose capacity when constantly sitting at close to 100% charged). The problem is that Huawei PC Manager is a Windows-only piece of software.
 
-Thanks to information kindly supplied by [Angry Ameba](http://4pda.ru/forum/index.php?showuser=5416449) and invaluable [input](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/issues/2) provided by [aymanbagabas](https://github.com/aymanbagabas), there is now a [script](batpro) available to make it work in Linux (you can download archive with this and the other script from [releases](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/releases) page). The script depends on `ioport` (available as package in Debian) and needs to be run as root:
+[Huawei-WMI](https://github.com/aymanbagabas/Huawei-WMI) device driver fully supports Matebook 13, including settings for battery protection, since version 3.0. The driver only works with Linux kernel 5.0 and newer.
+
+For those running older kernels I developed a [script](batpro) (you can download archive with this and the other script from [releases](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/releases) page). The script depends on `ioport` (available as package in Debian) and needs to be run as root:
 
     sudo batpro [help|status|off|home|office|travel]
 
@@ -89,9 +91,9 @@ The first three options are self-explanatory. `home` sets thresholds to 40% and 
 
     sudo batpro custom [1-100] [1-100]
 
-to set the thresholds to any percentages you like. This [batpro script](batpro) is really a modification of a more general [script by aymanbagabas](https://github.com/aymanbagabas/huawei_ec), so you can use that one instead if you like. Both are based on a dirty hack, and the proper solution would require someone with knowledge to design a `natacpi` driver for MateBook 13 so that these settings can be controlled by TLP and other tools.
+to set the thresholds to any percentages you like. This [batpro script](batpro) is really a modification of a more general [script by aymanbagabas](https://github.com/aymanbagabas/huawei_ec), so you can use that one instead if you like. Both are based on a dirty hack, and the proper solution is using [Huawei-WMI](https://github.com/aymanbagabas/Huawei-WMI) driver.
 
-> Battery protection works by not charging the laptop if battery is already above the minimal threshold when plugged into AC, and stopping the charging as soon as the battery charge reaches the maximum threshold. The battery controller is known to restore the thresholds to defaults after time: on MateBook X it is [known to happen](http://disq.us/p/20z3s00) after a reboot or three, and Angry Ameba [demonstrated](https://4pda.ru/forum/index.php?showtopic=945809&view=findpost&p=84391501) (source in Russian) that battery controller settings get reset after several hours on a switched off MateBook 13. Obviously, Huawei PC Manager monitors this and restores these settings as required. Our scripts don't.
+> Battery protection works by not charging the laptop if battery is already above the minimal threshold when plugged into AC, and stopping the charging as soon as the battery charge reaches the maximum threshold. The battery controller is known to restore the thresholds to defaults after time: on MateBook X it is [known to happen](http://disq.us/p/20z3s00) after a reboot or three, and Angry Ameba [demonstrated](https://4pda.ru/forum/index.php?showtopic=945809&view=findpost&p=84391501) (source in Russian) that battery controller settings get reset after several hours on a switched off MateBook 13. Obviously, Huawei PC Manager monitors this and restores these settings as required. Huawei-WMI driver and my script don't.
 
 There's also [a system tray applet](https://github.com/nekr0z/matebook-applet/releases) if you would rather have some GUI.
 
@@ -102,9 +104,9 @@ Suspend to S3 state works out of the box. For hibernation to work `Secure boot` 
 ## Keyboard
 Keyboard mostly works out of the box, including the not-so-documented hotkeys (Fn+Left for Home, Fn+Right for End, Fn+Up for PgUp, Fn+Down for PgDn). However, Microphone Mute, WiFi Switch and Huawei keys don't work out of the box.
 
-To have them working there's [a patch](https://github.com/aymanbagabas/Huawei-WMI) that is already incorporated in Linux kernel, just not yet in Debian. It can be installed (v1.0) using DKMS .deb package that the author [provides](https://github.com/aymanbagabas/Huawei-WMI/releases).
+To have them working there's [a driver](https://github.com/aymanbagabas/Huawei-WMI) that is already incorporated in Linux kernel, just not yet in Debian. It can be installed (v1.0) using DKMS .deb package that the author [provides](https://github.com/aymanbagabas/Huawei-WMI/releases).
 
-[Latest developments](https://github.com/aymanbagabas/Huawei-WMI/issues/8#issuecomment-485815254) of the same driver allow for the Microphone LED to work, too. Unfortunately, this requires running kernel 5.0 or later (avalable from Debian Experimental).
+Version 2.0 of the same driver allows for the Microphone LED to work, too. Unfortunately, this requires running kernel 5.0 or later (avalable from Debian Experimental).
 
 ### Fn-Lock
 Behaviour of the top row of keys on MateBook 13 is somewhat complex. By default, they behave as special keys (brightness, volume, etc.), but if you press them simultaneously with `Fn` or any modifier (`Ctrl`, `Alt`, `Shift`) they behave as F-keys (`F1` through `F12`). You can press `Fn` once so that an LED on it lights up, then the top row of keys starts behaving as F-keys, with or without any modifier (including `Fn` itself). This behaviour can be lived with, but you can't do things like `Ctrl`+`Ins` or `Alt`+`Shift`+`PrtSc` (because `Ins` and `PrtSc` are `F11` and `F12`, respectively, and pressing them with modifier forces them to be F-keys).
@@ -121,7 +123,7 @@ Behaviour of the top row of keys on MateBook 13 is somewhat complex. By default,
 
 Fortunately, Huawei's PC Manager has an option to invert this behaviour. If an option is activated (we call this option `Fn-Lock`), the upper row of keys become F-keys, and act like special keys only when `Fn` is pressed or switched on. In this mode other modifiers don't change behaviour, so it becomes possible to do `Alt`+`PrtSc`. Unfortunately, PC Manager is Windows-only.
 
-But thanks to the [input](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/issues/2) of [aymanbagabas](https://github.com/aymanbagabas) and based heavily on [his work](https://github.com/aymanbagabas/huawei_ec) and [information](https://4pda.ru/forum/index.php?showtopic=945809&view=findpost&p=84442098) supplied by [Angry Ameba](http://4pda.ru/forum/index.php?showuser=5416449), Fn-Lock option is now accessible in Linux with a [simple script](fnlock) (you can download archive with this and the other script from [releases](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/releases) page).
+[Huawei-WMI](https://github.com/aymanbagabas/Huawei-WMI) driver since version 2.0 makes it possible to use Fn-Lock on Linux. For those running Linux kernel older than 5.0 there's a [simple script](fnlock) (you can download archive with this and the other script from [releases](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/releases) page).
 
 The script depends on `ioport` (available as package in Debian) and needs to be run as root:
 
@@ -144,3 +146,8 @@ $ bash debian/bin/test-patches ../elan-touchpad-oldkernel.patch 	<<< or whicheve
 $ cd ..
 $ sudo dpkg -i linux-image-4.19.0-4-amd64-unsigned_4.19.28-2a~test_amd64.deb	<<< or whichever you've just compiled
 ```
+
+## Credits
+Thanks to [Angry Ameba](http://4pda.ru/forum/index.php?showuser=5416449) for kindly supplying the information necessary to make battery protection and Fn-Lock work.
+
+Eternal gratiude and enormous thanks to [aymanbagabas](https://github.com/aymanbagabas) for all developing Huawei-WMI driver and sharing tons of useful information.
