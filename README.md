@@ -150,4 +150,4 @@ $ sudo dpkg -i linux-image-4.19.0-4-amd64-unsigned_4.19.28-2a~test_amd64.deb	<<<
 ## Credits
 Thanks to [Angry Ameba](http://4pda.ru/forum/index.php?showuser=5416449) for kindly supplying the information necessary to make battery protection and Fn-Lock work.
 
-Eternal gratiude and enormous thanks to [aymanbagabas](https://github.com/aymanbagabas) for all developing Huawei-WMI driver and sharing tons of useful information.
+Eternal gratiude and enormous thanks to [Ayman Bagabas](https://github.com/aymanbagabas) for single-handedly developing Huawei-WMI driver and sharing tons of useful information.
