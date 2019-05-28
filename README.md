@@ -30,7 +30,7 @@ I am running Debian on the more simple MateBook 13 variant, model Wright-W19. Th
 | Lid | ACPI-compliant |  ✔ Yes | works as expected, though ACPI complains in logs |
 | Power management | | ✔ Yes | works, [see below](#power-management) for details |
 | Keyboard |  | ✔ Yes | [see below](#keyboard) for details |
-| Touchpad | ELAN962C:00 04F3:30D0 | ⁉ Kinda | touchpad is detected and works in KDE (though not in Debian installer), but almost all options are greyed out; double- and three-finger clicks work, so does double-finger scrolling, multi-touch gestures can not be set up; [see below](#touchpad) for details on log flood issue |
+| Touchpad | ELAN962C:00 04F3:30D0 | ✔ Yes | touchpad is detected and works in KDE (though not in Debian installer), [see below](#touchpad) for details |
 | Port Extender | MateDock 2 dongle included with the laptop | ✔ Yes | D-SUB, full-size HDMI, USB-C and USB-A work as expected |
 
 ## BIOS updates
@@ -134,6 +134,10 @@ The script depends on `ioport` (available as package in Debian) and needs to be 
 The [system tray applet](https://github.com/nekr0z/matebook-applet/releases) also works (just in case you would rather have some GUI).
 
 ## Touchpad
+
+General features like two-finger scrolling and three-finger touch work out of the box, more options can be made available by installing `xserver-xorg-input-synaptics`. No pressure sensitivity or palm detection, though.
+
+### Log flooding issue
 
 Out of the box touchpad floods system logs with error messages `incomplete report (14/65535)` upon every touch - up to the point where rubbing your finger against touchpad produces 15% CPU usage by syslog. The [corresponding patch](https://patchwork.kernel.org/patch/10750063/) is available in mainline kernel, but not in Debian (yet), and the patch can not be directly applied to the kernel version currently in Debian. Patching the kernel with [adapted patch](elan-touchpad-oldkernel.patch) fixes this issue.
 
