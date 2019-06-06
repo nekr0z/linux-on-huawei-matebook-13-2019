@@ -95,7 +95,23 @@ to set the thresholds to any percentages you like. This [batpro script](batpro) 
 
 > Battery protection works by not charging the laptop if battery is already above the minimal threshold when plugged into AC, and stopping the charging as soon as the battery charge reaches the maximum threshold. The battery controller is known to restore the thresholds to defaults after time: on MateBook X it is [known to happen](http://disq.us/p/20z3s00) after a reboot or three, and Angry Ameba [demonstrated](https://4pda.ru/forum/index.php?showtopic=945809&view=findpost&p=84391501) (source in Russian) that battery controller settings get reset after several hours on a switched off MateBook 13. Obviously, Huawei PC Manager monitors this and restores these settings as required. Huawei-WMI driver and my script don't.
 >
-> This behaviour may be really annoying: you hibernate your laptop, wake it up next Monday, work for several hours, plug it in for a night and go to bed, only to find out in the morning that battery protection is off and the battery stayed on 100% for good six hours. This can easily be fixed using `systemd` (provided that you use Huawei-WMI driver), all you need to do is put [this script](charge-thresholds) in your `/usr/lib/systemd/system-sleep/` and make sure it is executable. Beware, though, that if you plug the laptop in _before_ waking it up, the magic won't work (knowing that Windows' behaviour is exactly the same may provide some consolation).
+> This behaviour may be really annoying: you hibernate your laptop, wake it up next Monday, work for several hours, plug it in for a night and go to bed, only to find out in the morning that battery protection is off and the battery stayed on 100% for good six hours. If you're using Huawei-WMI driver, this situation can easily be fixed using a [solution](https://github.com/qu1x/huawei-wmi) provided by [Rouven Spreckels](https://github.com/n3vu0r):
+> ```
+> $ git clone https://github.com/qu1x/huawei-wmi.git
+> $ cd huawei-wmi
+> $ sudo make install
+> ```
+> You may then use the same Makefile to set thresholds so that they are reinstated after wakeups and reboots:
+> ```
+> $ sudo make [off|home|office|travel]
+> ```
+> You can also add your user to the `huawei-wmi` group:
+> ```
+> $ sudo usermod -a -G huawei-wmi YOUR_USERNAME
+> ```
+> (naturally, you need to put your actual username instead of `YOUR_USERNAME`). In this case you don't need `sudo` to set thresholds.
+> 
+> Beware, though, that if you plug the laptop in _before_ waking it up, the magic won't work (knowing that Windows' behaviour is exactly the same may provide some consolation).
 
 There's also [a system tray applet](https://github.com/nekr0z/matebook-applet/releases) if you would rather have some GUI.
 
