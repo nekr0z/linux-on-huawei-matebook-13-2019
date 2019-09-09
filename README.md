@@ -81,7 +81,7 @@ Main battery features, such as current status, charging/discharging rate and rem
 
 Huawei's proprietary PC Manager allows to switch on battery protection with several modes for charge/discharge threshold while connected to AC power. For instance, it is possible to make the laptop maintain the battery charge between 40% and 70%, which is supposed to greatly reduce battery wear (batteries are known to lose capacity when constantly sitting at close to 100% charged). The problem is that Huawei PC Manager is a Windows-only piece of software.
 
-[Huawei-WMI](https://github.com/aymanbagabas/Huawei-WMI) device driver fully supports Matebook 13, including settings for battery protection, since version 3.0. The driver only works with Linux kernel 5.0 and newer.
+[Huawei-WMI](https://github.com/aymanbagabas/Huawei-WMI) device driver fully supports Matebook 13, including settings for battery protection, since version 3.0. The driver only works with Linux kernel 5.0 and newer (you can install 5.2 from Debian Backports).
 
 For those running older kernels I developed a [script](batpro) (you can download archive with this and the other script from [releases](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/releases) page). The script depends on `ioport` (available as package in Debian) and needs to be run as root:
 
@@ -124,7 +124,7 @@ Keyboard mostly works out of the box, including the not-so-documented hotkeys (F
 
 To have them working there's [a driver](https://github.com/aymanbagabas/Huawei-WMI) that is already incorporated in Linux kernel, just not yet in Debian. It can be installed (v1.0) using DKMS .deb package that the author [provides](https://github.com/aymanbagabas/Huawei-WMI/releases).
 
-Version 2.0 of the same driver allows for the Microphone LED to work, too. Unfortunately, this requires running kernel 5.0 or later (avalable from Debian Experimental).
+Version 2.0 of the same driver allows for the Microphone LED to work, too. This requires running kernel 5.0 or later (5.2 is avalable from Debian Backports).
 
 ### Fn-Lock
 Behaviour of the top row of keys on MateBook 13 is somewhat complex. By default, they behave as special keys (brightness, volume, etc.), but if you press them simultaneously with `Fn` or any modifier (`Ctrl`, `Alt`, `Shift`) they behave as F-keys (`F1` through `F12`). You can press `Fn` once so that an LED on it lights up, then the top row of keys starts behaving as F-keys, with or without any modifier (including `Fn` itself). This behaviour can be lived with, but you can't do things like `Ctrl`+`Ins` or `Alt`+`Shift`+`PrtSc` (because `Ins` and `PrtSc` are `F11` and `F12`, respectively, and pressing them with modifier forces them to be F-keys).
@@ -155,7 +155,7 @@ General features like two-finger scrolling and three-finger touch work out of th
 
 ### Log flooding issue
 
-Out of the box touchpad floods system logs with error messages `incomplete report (14/65535)` upon every touch - up to the point where rubbing your finger against touchpad produces 15% CPU usage by syslog. The [corresponding patch](https://patchwork.kernel.org/patch/10750063/) is available in mainline kernel, but not in Debian (yet), and the patch can not be directly applied to the kernel version currently in Debian. Patching the kernel with [adapted patch](elan-touchpad-oldkernel.patch) fixes this issue.
+Out of the box touchpad floods system logs with error messages `incomplete report (14/65535)` upon every touch - up to the point where rubbing your finger against touchpad produces 15% CPU usage by syslog. The [corresponding patch](https://patchwork.kernel.org/patch/10750063/) is available in backported kernel 5.2 in Debian. If you want to use stock kernel instead, patching the kernel with [adapted patch](elan-touchpad-oldkernel.patch) fixes this issue.
 
 A quick (and, admittedly, dirty) way to patch a Debian kernel:
 ```
