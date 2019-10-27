@@ -25,7 +25,7 @@ I am running Debian on the more simple MateBook 13 variant, model Wright-W19. Th
 | Webcam | HD Camera (13D3:56C6) | ✔ Yes | works out of the box, indicating light too |
 | Ports | 2 × USB-C | ✔ Yes | charging works only via left port, external display only via right one, but it is a known hardware limitation of the laptop |
 | Power button |  | ✔ Yes | needs to be pressed for at least a second to generate event |
-| Fingerprint Reader | some proprietary sensor | ❌ No | located on the power button  |
+| Fingerprint Reader | Goodix GXFP5187 | ❌ No | located on the power button, see [below](#fingerprint-reader) for details  |
 | Battery | Dynapack HB4593J6ECW (42 Wh) | ✔ Yes | see [below](#battery) for details |
 | Lid | ACPI-compliant |  ✔ Yes | works as expected, though ACPI complains in logs |
 | Power management | | ✔ Yes | works, [see below](#power-management) for details |
@@ -72,6 +72,10 @@ If you want correct CPU temperature displayed in `byobu` status notifications, a
 Sound generally works OK out of the box, the only thing not working is headphones autodetection (i.e. it is necessary to manually switch from speakers to headphones and back). This can be fixed, as [pointed out](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/issues/3) by [ffftwo](https://github.com/ffftwo):
 
     sudo echo "options snd_hda_intel model=dell-headset-multi" >> /etc/modprobe.d/sound.conf
+
+## Fingerprint Reader
+
+There's currently no way to make this model work in Linux, however, there's [work in progress](https://gitlab.freedesktop.org/libfprint/libfprint/issues/112) to make this happen.
 
 ## Battery
 
