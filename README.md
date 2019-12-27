@@ -15,7 +15,7 @@ I am running Debian on the more simple MateBook 13 variant, model Wright-W19. Th
 | Processor | Intel Core i5-8265U | ✔ Yes | 8 cores, power states etc seem to work out of the box |
 | Graphics | Intel UHD Graphics 620 | ✔ Yes | via standard kernel driver |
 | Memory | 8192 MB | ✔ Yes |  |
-| Display | 13 inch 2:3, 2160x1440 (2K) | ✔ Yes | resolution is correctly detected by `xrandr`, backlight control works via native function keys and can be controlled by KDE settings |
+| Display | 13 inch 2:3, 2160x1440 (2K) | ✔ Yes | resolution is correctly detected by `xrandr`, backlight control works via native function keys and can be controlled by KDE settings, [below](#display) for some other details |
 | Storage | Samsung SSD, 256 GB | ✔ Yes | via standard kernel driver |
 | Wifi | Intel Cannon Point Wireless-AC 8265 (a/b/g/n/ac) | ✔ Yes | requires kernel 4.14 and firmware (`firmware-iwlwifi` non-free package) |
 | Bluetooth | Intel Bluetooth 5.0| ✔ Yes | works as expected |
