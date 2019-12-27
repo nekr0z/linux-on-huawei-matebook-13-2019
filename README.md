@@ -172,8 +172,16 @@ $ bash debian/bin/test-patches ../elan-touchpad-oldkernel.patch 	<<< or whicheve
 $ cd ..
 $ sudo dpkg -i linux-image-4.19.0-4-amd64-unsigned_4.19.28-2a~test_amd64.deb	<<< or whichever you've just compiled
 ```
+## Display
+
+### Fractional Scaling
+On KDE, Deepin and other Qt-based desktop environments, fractional scaling is supported without any hassle but this is not the case for GTK-based desktop environments such as GNOME and XFCE. Well, you can use Wayland but if the app doesn't support Wayland natively, you'll encounter some problems which is fuzziness all over the window. There's a workaround for Xorg:
+Copy `20-intel.conf` and `10-monitor.conf` to `/etc/X11/xorg.conf.d/` and reboot. Voila! You have 150% scaling without any tear - little performance drop.
+I want to add that you shouldn't run your machine with the kernel between 5.0 and 5.5 because one of the kernel maintainer broke something for scaling. They fixed on 5.5. Recommended to use Ubuntu-18.04-HWE kernel because it supports this trick and doesn't have log flooding issue.
 
 ## Credits
 Thanks to [Angry Ameba](http://4pda.ru/forum/index.php?showuser=5416449) for kindly supplying the information necessary to make battery protection and Fn-Lock work.
 
 Eternal gratiude and enormous thanks to [Ayman Bagabas](https://github.com/aymanbagabas) for single-handedly developing Huawei-WMI driver and sharing tons of useful information.
+
+Also thanks to [Mert Demir](https://github.com/validatedev) for giving information about fractional scaling and adding the related info.
