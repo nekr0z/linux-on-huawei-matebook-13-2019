@@ -15,7 +15,7 @@ I am running Debian on the more simple MateBook 13 variant, model Wright-W19. Th
 | Processor | Intel Core i5-8265U | ✔ Yes | 8 cores, power states etc seem to work out of the box |
 | Graphics | Intel UHD Graphics 620 | ✔ Yes | via standard kernel driver |
 | Memory | 8192 MB | ✔ Yes |  |
-| Display | 13 inch 2:3, 2160x1440 (2K) | ✔ Yes | resolution is correctly detected by `xrandr`, backlight control works via native function keys and can be controlled by KDE settings |
+| Display | 13 inch 2:3, 2160x1440 (2K) | ✔ Yes | resolution is correctly detected by `xrandr`, backlight control works via native function keys and can be controlled by KDE settings, see [below](#display) for details on scaling issues |
 | Storage | Samsung SSD, 256 GB | ✔ Yes | via standard kernel driver |
 | Wifi | Intel Cannon Point Wireless-AC 8265 (a/b/g/n/ac) | ✔ Yes | requires kernel 4.14 and firmware (`firmware-iwlwifi` non-free package) |
 | Bluetooth | Intel Bluetooth 5.0| ✔ Yes | works as expected |
@@ -28,7 +28,7 @@ I am running Debian on the more simple MateBook 13 variant, model Wright-W19. Th
 | Fingerprint Reader | Goodix GXFP5187 | ❌ No | located on the power button, see [below](#fingerprint-reader) for details  |
 | Battery | Dynapack HB4593J6ECW (42 Wh) | ✔ Yes | see [below](#battery) for details |
 | Lid | ACPI-compliant |  ✔ Yes | works as expected, though ACPI complains in logs |
-| Power management | | ✔ Yes | works, [see below](#power-management) for details |
+| Power management | | ✔ Yes | works, see [below](#power-management) for details |
 | Keyboard |  | ✔ Yes | [see below](#keyboard) for details |
 | Touchpad | ELAN962C:00 04F3:30D0 | ✔ Yes | touchpad is detected and works in KDE (though not in Debian installer), [see below](#touchpad) for details |
 | Port Extender | MateDock 2 dongle included with the laptop | ✔ Yes | D-SUB, full-size HDMI, USB-C and USB-A work as expected |
@@ -66,6 +66,13 @@ Out of the box fan control is very much acceptable, with fans starting up as pro
 If you want correct CPU temperature displayed in `byobu` status notifications, add the following line to your `.byobu/statusrc`:
 
     MONITORED_TEMP=/sys/class/hwmon/hwmon1/temp1_input
+
+## Display
+
+### Fractional Scaling
+On KDE, Deepin and other Qt-based desktop environments, fractional scaling is supported without any hassle but this is not the case for GTK-based desktop environments such as GNOME and XFCE. Using Wayland can be an option, but the apps that don't support Wayland natively will still have issues such fuzziness all over the window. A workaround for Xorg allows for 150% scaling without any tear at the cost of a little performance drop:
+Copy `20-intel.conf` and `10-monitor.conf` to `/etc/X11/xorg.conf.d/` and reboot.
+It is worth noticing that kernels between 5.0 and 5.5 have known issues with desktop scaling, fixed in 5.5. Ubuntu users can use Ubuntu-18.04-HWE kernel that contains the fix and also is free of the [log flooding issue](#touchpad).
 
 ## Soundcard
 
@@ -177,3 +184,5 @@ $ sudo dpkg -i linux-image-4.19.0-4-amd64-unsigned_4.19.28-2a~test_amd64.deb	<<<
 Thanks to [Angry Ameba](http://4pda.ru/forum/index.php?showuser=5416449) for kindly supplying the information necessary to make battery protection and Fn-Lock work.
 
 Eternal gratiude and enormous thanks to [Ayman Bagabas](https://github.com/aymanbagabas) for single-handedly developing Huawei-WMI driver and sharing tons of useful information.
+
+Also thanks to [Mert Demir](https://github.com/validatedev) for giving information about fractional scaling and adding the related info.
