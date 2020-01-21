@@ -8,7 +8,7 @@ Huawei MateBook 13, released in 2019, has at least two modifications (different 
 
 I am running Debian on the more simple MateBook 13 variant, model Wright-W19. This repository documents what works and what does not.
 
-If you like this page and want it to get even better and more useful, feel free to contribute to issues and pull requests, or just [buy me a coffee](https://www.buymeacoffee.com/nekr0z).
+If you like this page and want it to get even better and more useful, feel free to contribute issues and pull requests, or just [buy me a coffee](https://www.buymeacoffee.com/nekr0z).
 
 ## Linux Support Matrix
 
