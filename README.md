@@ -82,7 +82,7 @@ Sound generally works OK out of the box, the only thing not working is headphone
 
     sudo echo "options snd_hda_intel model=dell-headset-multi" >> /etc/modprobe.d/sound.conf
     
-If you don't have sound in the headphones after this, use this and should works fine.
+You may need to reset ALSA after this for the headphones to work:
     
     alsactl restore
 
