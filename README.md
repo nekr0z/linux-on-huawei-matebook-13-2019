@@ -81,6 +81,10 @@ It is worth noticing that kernels between 5.0 and 5.5 have known issues with des
 Sound generally works OK out of the box, the only thing not working is headphones autodetection (i.e. it is necessary to manually switch from speakers to headphones and back). This can be fixed, as [pointed out](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/issues/3) by [ffftwo](https://github.com/ffftwo):
 
     sudo echo "options snd_hda_intel model=dell-headset-multi" >> /etc/modprobe.d/sound.conf
+    
+If you don't have sound in the headphones after this, use this and should works fine.
+    
+    alsactl restore
 
 ## Fingerprint Reader
 
