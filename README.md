@@ -8,6 +8,8 @@ Huawei MateBook 13, released in 2019, has at least two modifications (different 
 
 I am running Debian on the more simple MateBook 13 variant, model Wright-W19. This repository documents what works and what does not.
 
+[Reportedly](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/issues/21), it also holds true for at least one 2020 Huawei Matebook 13 (AMD Ryzen 5 3500) running Elementary OS.
+
 If you like this page and want it to get even better and more useful, feel free to contribute issues and pull requests, or just [buy me a coffee](https://www.buymeacoffee.com/nekr0z).
 
 ## Linux Support Matrix
