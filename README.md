@@ -47,6 +47,7 @@ To update BIOS, make sure `fwupd` is installed. You'll also need [firmware-packa
 
 1. Download BIOS from Huawei website. Version 1.0.5 (we'll use it as an example) comes in a `.zip` file that contains a signature and another `.zip` file with the same name. You need that second `.zip` file, so extract it to the directory you have `firmware-packager` script in.
 
+> **Note**: As of version 1.28, the bios executable is packaged within another executable in the zip file called `WRIWU128.exe`. You can extract the executable with `7z x WRIWU128.exe`. In this case it was called `BIOS_1.28.exe`. When running the `firmware-packager`, use `--exe ./BIOS_1.28.exe` and `--bin ./UEFI_FW.bin` in place of the corresponding arguments used in the example below.
 2.
         ./firmware-packager --firmware-name HuaweiBIOS --device-guid 4ab52f4e-04c0-47ec-af33-a4f5c28ce0b7 --developer-name Huawei --release-version 0.1.0.5 --exe ./MateBook_13_BIOS_1.05.zip --bin ./MateBook_13_BIOS_1.05/WRIWU105.bin --out bios.cab
 
