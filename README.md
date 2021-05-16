@@ -45,11 +45,16 @@ To update BIOS, make sure `fwupd` is installed. You'll also need [firmware-packa
 
 **PLEASE read through all the steps before you start and make sure you have at least a vague understanding of the process! Don't hold me responsible if you trash your system or brick your BIOS!!!**
 
-1. Download BIOS from Huawei website. Version 1.0.5 (we'll use it as an example) comes in a `.zip` file that contains a signature and another `.zip` file with the same name. You need that second `.zip` file, so extract it to the directory you have `firmware-packager` script in.
+1. Download BIOS from Huawei website. As of version 1.28 the BIOS comes in a `.zip` file that is somewhat of a "Russian doll" that needs to be unpacked.
 
-> **Note**: As of version 1.28, the bios executable is packaged within another executable in the zip file called `WRIWU128.exe`. You can extract the executable with `7z x WRIWU128.exe`. In this case it was called `BIOS_1.28.exe`. When running the `firmware-packager`, use `--exe ./BIOS_1.28.exe` and `--bin ./UEFI_FW.bin` in place of the corresponding arguments used in the example below.
+    1. The downloadable `.zip` contains a signature and another `.zip` file with the same name.
+
+    2. That second `.zip` file contains a `WRIWU128.EXE` file that is a self-extractable archive. In Linux, you can use `7z` to unpack it (`7z x WRIWU128.EXE`).
+
+    3. Inside there is `BIOS_1.28.exe` that is the actual BIOS file. You need to put it in the directory you have `firmware-packager` in.
+
 2.
-        ./firmware-packager --firmware-name HuaweiBIOS --device-guid 4ab52f4e-04c0-47ec-af33-a4f5c28ce0b7 --developer-name Huawei --release-version 0.1.0.5 --exe ./MateBook_13_BIOS_1.05.zip --bin ./MateBook_13_BIOS_1.05/WRIWU105.bin --out bios.cab
+        ./firmware-packager --firmware-name HuaweiBIOS --device-guid 4ab52f4e-04c0-47ec-af33-a4f5c28ce0b7 --developer-name Huawei --release-version 0.1.28 --exe ./BIOS_1.28.exe --bin ./UEFI_FW.bin --out bios.cab
 
 3.
         fwupdmgr install bios.cab
@@ -63,6 +68,13 @@ To update BIOS, make sure `fwupd` is installed. You'll also need [firmware-packa
         sudo grub-install --boot-directory=/mnt/system/boot --bootloader-id=debian --target=x86_64-efi --efi-directory=/mnt/system/boot/efi
 
 Your mileage may vary.
+<details>
+<summary>For older versions, the doll was less complex.</summary>
+For 1.0.5 the second <code>.zip</code> contained the <code>.bin</code> BIOS directly, so you'd have the second <code>.zip</code> in your <code>firmware-packager</code> directory and the command would be:
+
+     ./firmware-packager --firmware-name HuaweiBIOS --device-guid 4ab52f4e-04c0-47ec-af33-a4f5c28ce0b7 --developer-name Huawei --release-version 0.1.0.5 --exe ./MateBook_13_BIOS_1.05.zip --bin ./MateBook_13_BIOS_1.05/WRIWU105.bin --out bios.cab
+
+</details>
 
 ## Temperature
 
