@@ -139,9 +139,9 @@ to set the thresholds to any percentages you like. This [batpro script](batpro) 
 > ```
 > You can also add your user to the `huawei-wmi` group:
 > ```
-> $ sudo usermod -a -G huawei-wmi YOUR_USERNAME
+> $ sudo usermod -a -G huawei-wmi $USER
 > ```
-> (naturally, you need to put your actual username instead of `YOUR_USERNAME`). In this case you don't need `sudo` to set thresholds.
+> In this case you don't need `sudo` to set thresholds.
 > 
 > Beware, though, that if you plug the laptop in _before_ waking it up, the magic won't work (knowing that Windows' behaviour is exactly the same may provide some consolation).
 
