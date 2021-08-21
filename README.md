@@ -95,7 +95,7 @@ It is worth noticing that kernels between 5.0 and 5.5 have known issues with des
 
 Sound generally works OK out of the box, the only thing not working is headphones autodetection (i.e. it is necessary to manually switch from speakers to headphones and back). This can be fixed, as [pointed out](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/issues/3) by [ffftwo](https://github.com/ffftwo):
 
-    sudo echo "options snd_hda_intel model=dell-headset-multi" >> /etc/modprobe.d/sound.conf
+    sudo sh -c "echo 'options snd_hda_intel model=dell-headset-multi' >> /etc/modprobe.d/sound.conf"
     
 You may need to reset ALSA after this for the headphones to work:
     
@@ -139,9 +139,9 @@ to set the thresholds to any percentages you like. This [batpro script](batpro) 
 > ```
 > You can also add your user to the `huawei-wmi` group:
 > ```
-> $ sudo usermod -a -G huawei-wmi YOUR_USERNAME
+> $ sudo usermod -a -G huawei-wmi $USER
 > ```
-> (naturally, you need to put your actual username instead of `YOUR_USERNAME`). In this case you don't need `sudo` to set thresholds.
+> In this case you don't need `sudo` to set thresholds.
 > 
 > Beware, though, that if you plug the laptop in _before_ waking it up, the magic won't work (knowing that Windows' behaviour is exactly the same may provide some consolation).
 
