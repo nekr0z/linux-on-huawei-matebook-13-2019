@@ -101,6 +101,8 @@ You may need to reset ALSA after this for the headphones to work:
     
     sudo alsactl restore
 
+The headset microphone will not be switched to automatically when a microphone-enabled headset is plugged. However, there will be an option to switch to it, and the system will automatically switch back to the internal microphone as soon as the headset is unplugged.
+
 ## Fingerprint Reader
 
 There's currently no way to make this model work in Linux, however, there's [work in progress](https://gitlab.freedesktop.org/libfprint/libfprint/issues/112) to make this happen.
