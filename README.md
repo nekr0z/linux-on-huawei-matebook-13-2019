@@ -117,6 +117,8 @@ Huawei's proprietary PC Manager allows to switch on battery protection with seve
 
 You can use [matebook-applet](https://github.com/nekr0z/matebook-applet) to have GUI on Linux for this functionality. Under the hood it utilizes [Huawei-WMI](https://github.com/aymanbagabas/Huawei-WMI) device driver that fully supports Matebook 13, including settings for battery protection, since version 3.0. The driver only works with Linux kernel 5.0 and newer (you can install 5.2 from Debian Backports). Kernels 5.5 and newer have the sufficient version of the driver already included.
 
+Furthermore, since GNOME does not provide a system tray out-of-box for the applet to use, there is [Huawei WMI Controls](https://extensions.gnome.org/extension/4580/huawei-wmi-controls) extension implementing a similar interface.
+
 For those running older kernels I developed a [script](batpro) (you can download archive with this and the other script from [releases](https://github.com/nekr0z/linux-on-huawei-matebook-13-2019/releases) page). The script depends on `ioport` (available as package in Debian) and needs to be run as root:
 
     sudo batpro [help|status|off|home|office|travel]
